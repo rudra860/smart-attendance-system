@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="student-bg">
+
+<div class="student-container">
+
+    <!-- ================= HEADER ================= -->
+    <div class="student-header">
+        <h1>🎓 Student Dashboard</h1>
+        <p>Welcome <b>{{name}}</b> (Reg No: <b>{{roll}}</b>)</p>
+    </div>
+
+    <!-- LOW ATTENDANCE WARNING -->
+    {% if percent < 75 %}
+    <div class="student-card gradient-red" style="text-align:center;">
+        ⚠️ <b>Warning:</b> Your attendance is below 75%. Please attend classes regularly.
+    </div>
+    {% endif %}
+
+    <div class="student-cards">
+
+        <!-- ================= PROFILE CARD ================= -->
+        <div class="student-card gradient-purple">
+            <h3>👤 Student Profile</h3>
+            <p><b>Name:</b> {{name}}</p>
+            <p><b>Reg No:</b> {{roll}}</p>
+            <p>
+                <b>Status:</b>
+                <span class="badge {{status|lower}}">{{status}}</span>
+            </p>
+
+            {% if status == "Good" %}
+                <p>✅ Excellent attendance. Keep it up!</p>
+            {% elif status == "Warning" %}
+                <p>⚠️ Attendance is average. Try to improve.</p>
+            {% else %}
+                <p>❌ Attendance is low. Immediate improvement needed.</p>
+            {% endif %}
+        </div>
+
+        <!-- ================= OVERALL ATTENDANCE ================= -->
+        <div class="student-card gradient-blue">
+            <h3>📊 Overall Attendance</h3>
+
+            <div class="neon-circle" style="--p:{{percent}}">
+                <span>{{percent}}%</span>
+            </div>
+
+            <div class="neon-progress">
+                <div class="neon-fill" style="width:{{percent}}%">
+                    {{percent}}%
+                </div>
+            </div>
+
+            <p style="text-align:center;margin-top:10px;">
+                Present: <b>{{present}}</b> / {{total}}
+            </p>
+
+            {% if percent < 75 %}
+                <p style="color:#ffcccc;text-align:center;">❌ Not Eligible for Exam</p>
+            {% else %}
+                <p style="color:#ccffcc;text-align:center;">✅ Eligible for Exam</p>
+            {% endif %}
+        </div>
+
+        <!-- ================= SUMMARY ================= -->
+        <div class="student-card gradient-green">
+            <h3>📅 Attendance Summary</h3>
+            <p>Total Classes: <b>{{total}}</b></p>
+            <p>Present: <b>{{present}}</b></p>
+            <p>Absent: <b>{{absent}}</b></p>
+            <p>Minimum Required: <b>75%</b></p>
+        </div>
+
+        <!-- ================= ACTIONS ================= -->
+        <div class="student-card gradient-orange">
+            <h3>⚡ Quick Actions</h3>
+            <p>Manage attendance & account</p>
+
+            <a href="/leave" class="neon-btn">📝 Apply Leave</a><br><br>
+
+            <a href="/student-analytics" class="neon-btn">📊 View Analytics</a><br><br>
+
+            <a href="/change-password" class="neon-btn">🔐 Change Password</a>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <!-- ======================================================= -->
+    <!-- 📚 SUBJECT WISE ATTENDANCE -->
+    <!-- ======================================================= -->
+
+    <h2 class="section-title" style="text-align:center;">📚 Subject Wise Attendance</h2>
+
+    <div class="student-card gradient-blue">
+
+        {% if subject_stats|length == 0 %}
+            <p style="text-align:center;">No subject attendance available</p>
+        {% else %}
+
+        <table style="width:100%; text-align:center;">
+            <tr>
+                <th>Subject Code</th>
+                <th>Subject Name</th>
+                <th>Total Classes</th>
+                <th>Present</th>
+                <th>Percentage</th>
+                <th>Status</th>
+            </tr>
+
+            {% for s in subject_stats %}
+
+            {% set percent_sub = s[4] %}
+
+            <tr>
+                <td><b>{{s[0]}}</b></td>
+                <td>{{s[1]}}</td>
+                <td>{{s[2]}}</td>
+                <td>{{s[3]}}</td>
+
+                <!-- percentage bar -->
+                <td>
+                    <div class="neon-progress" style="height:18px;">
+                        <div class="neon-fill" style="width:{{percent_sub}}%">
+                            {{percent_sub}}%
+                        </div>
+                    </div>
+                </td>
+
+                <!-- AUTO STATUS (NO s[5] NEEDED NOW) -->
+                <td>
+                    {% if percent_sub >= 85 %}
+                        <span class="badge good">Excellent</span>
+                    {% elif percent_sub >= 75 %}
+                        <span class="badge good">Good</span>
+                    {% elif percent_sub >= 60 %}
+                        <span class="badge warning">Warning</span>
+                    {% else %}
+                        <span class="badge low">Low</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <!-- ================= FOOTER ================= -->
+    <div style="text-align:center;">
+        <a href="/logout" class="neon-btn">🚪 Logout</a>
+    </div>
+
+    <footer style="text-align:center;opacity:0.6;margin-top:20px;">
+        © Smart Attendance Management System
+    </footer>
+
+</div>
+
+</body>
+</html>

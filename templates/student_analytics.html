@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Analytics</title>
+
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+    background:#0f172a;
+    color:white;
+}
+
+.analytics-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.kpi{
+    background:#020617;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.6);
+    text-align:center;
+}
+
+.kpi h4{
+    opacity:0.7;
+    font-weight:400;
+}
+
+.kpi h2{
+    font-size:32px;
+    margin:10px 0 0;
+}
+
+.chart-box{
+    background:#020617;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.6);
+}
+</style>
+
+</head>
+<body>
+
+<div class="student-container">
+
+    <div class="student-header">
+        <h1>📊 Attendance Analytics</h1>
+        <p>Visual attendance performance overview</p>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="analytics-grid">
+        <div class="kpi">
+            <h4>Total Days</h4>
+            <h2>{{total}}</h2>
+        </div>
+
+        <div class="kpi" style="background:#052e16;">
+            <h4>Present</h4>
+            <h2>{{present}}</h2>
+        </div>
+
+        <div class="kpi" style="background:#450a0a;">
+            <h4>Absent</h4>
+            <h2>{{absent}}</h2>
+        </div>
+
+        <div class="kpi" style="background:#312e81;">
+            <h4>Attendance %</h4>
+            <h2>{{percent}}%</h2>
+        </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="analytics-grid">
+        <div class="chart-box">
+            <h3 style="text-align:center;">Present vs Absent</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h3 style="text-align:center;">Attendance Trend</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <br>
+    <div style="text-align:center;">
+        <a href="/student" class="neon-btn">⬅ Back</a>
+    </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Present', 'Absent'],
+        datasets: [{
+            data: [{{present}}, {{absent}}],
+            backgroundColor: ['#22c55e','#ef4444']
+        }]
+    }
+});
+
+new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Present','Absent'],
+        datasets: [{
+            label: 'Days',
+            data: [{{present}}, {{absent}}],
+            backgroundColor: ['#22c55e','#ef4444']
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

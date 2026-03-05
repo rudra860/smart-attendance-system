@@ -1,0 +1,393 @@
+*{
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    height:100vh;
+    margin:0;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.login-card{
+    width:360px;
+    padding:35px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    text-align:center;
+    color:white;
+}
+
+.login-card h1{
+    margin:0;
+    font-size:28px;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    margin:10px 0 25px;
+    opacity:0.9;
+}
+
+.input-box{
+    display:flex;
+    align-items:center;
+    background:rgba(255,255,255,0.2);
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:18px;
+}
+
+.input-box i{
+    margin-right:10px;
+    font-size:18px;
+}
+
+.input-box input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    width:100%;
+    font-size:15px;
+}
+
+.input-box input::placeholder{
+    color:#eee;
+}
+
+.login-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    background:#ffffff;
+    color:#764ba2;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#f1f1f1;
+    transform:scale(1.03);
+}
+
+.note{
+    margin-top:20px;
+    font-size:13px;
+    opacity:0.9;
+}
+.dashboard{
+    width:90%;
+    margin:40px auto;
+    color:white;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.top-bar h2{
+    margin:0;
+}
+
+.logout{
+    font-size:14px;
+    opacity:0.9;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.card h3{
+    margin-top:0;
+}
+
+.card.wide{
+    width:100%;
+}
+
+.btn{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:20px;
+    background:white;
+    color:#764ba2;
+    text-decoration:none;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+.approve{
+    background:#4CAF50;
+    color:white;
+}
+
+.reject{
+    background:#f44336;
+    color:white;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:rgba(255,255,255,0.25);
+}
+
+tr:nth-child(even){
+    background:rgba(255,255,255,0.1);
+}
+/* ================= STUDENT DASHBOARD CREATIVE ================= */
+
+.student-bg{
+    min-height:100vh;
+    background:linear-gradient(135deg,#1d2671,#c33764);
+    padding:40px 0;
+    display:block;
+}
+
+.student-container{
+    width:90%;
+    margin:auto;
+    color:white;
+}
+
+.student-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.student-header h1{
+    margin:0;
+    font-size:36px;
+    letter-spacing:1px;
+}
+
+.student-header p{
+    opacity:0.85;
+    font-size:15px;
+}
+
+.student-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.student-card{
+    padding:30px;
+    border-radius:22px;
+    box-shadow:0 20px 45px rgba(0,0,0,0.4);
+    text-align:center;
+    transition:0.4s;
+}
+
+.student-card:hover{
+    transform:translateY(-8px) scale(1.03);
+}
+
+/* Gradient Colors */
+.gradient-blue{
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.gradient-purple{
+    background:linear-gradient(135deg,#8e2de2,#4a00e0);
+}
+
+/* Neon Circular Progress */
+.neon-circle{
+    width:150px;
+    height:150px;
+    margin:20px auto;
+    border-radius:50%;
+    background:conic-gradient(
+        #00ffcc calc(var(--p)*1%),
+        rgba(255,255,255,0.2) 0
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 30px #00ffcc;
+}
+
+.neon-circle span{
+    font-size:26px;
+    font-weight:bold;
+}
+
+/* Neon Linear Progress */
+.neon-progress{
+    background:rgba(255,255,255,0.25);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:15px;
+}
+
+.neon-fill{
+    background:linear-gradient(to right,#00ffcc,#00c6ff);
+    padding:6px;
+    color:black;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* Student Button */
+.neon-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 30px;
+    border-radius:30px;
+    background:white;
+    color:#4a00e0;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.neon-btn:hover{
+    background:#00ffcc;
+    color:black;
+}
+/* ===== EXTRA STUDENT FEATURES ===== */
+
+.gradient-green{
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.gradient-orange{
+    background:linear-gradient(135deg,#ff8008,#ffc837);
+}
+
+/* Status Badges */
+.badge{
+    padding:5px 12px;
+    border-radius:15px;
+    font-weight:bold;
+}
+
+.badge.good{
+    background:#4CAF50;
+}
+
+.badge.warning{
+    background:#ff9800;
+}
+
+.badge.low{
+    background:#f44336;
+}
+/* ===== TEACHER DASHBOARD EXTRA ===== */
+
+.badge.pending{
+    background:#ff9800;
+    padding:5px 12px;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+}
+
+.badge.approved{
+    background:#4CAF50;
+    padding:5px 12px;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+}
+
+.badge.rejected{
+    background:#f44336;
+    padding:5px 12px;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+}
+/* ===== LEAVE PAGE EXTRA ===== */
+
+select, textarea{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
+textarea{
+    min-height:80px;
+    resize:none;
+}
+/* ===== LOGIN PAGE EXTRA FEATURES ===== */
+
+.toggle{
+    cursor:pointer;
+    margin-left:10px;
+}
+
+.role-hint{
+    font-size:13px;
+    margin-bottom:15px;
+    opacity:0.9;
+}
+
+.remember{
+    text-align:left;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.login-btn{
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,255,255,0.6);}
+    70%{box-shadow:0 0 0 10px rgba(255,255,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+}
+
+.footer-text{
+    margin-top:20px;
+    font-size:12px;
+    opacity:0.8;
+}
+

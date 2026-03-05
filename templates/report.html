@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Attendance Report</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="student-bg">
+
+<div class="student-container">
+
+    <div class="student-header">
+        <h1>📈 Attendance Report</h1>
+        <p>Your overall attendance analysis</p>
+    </div>
+
+    <div class="student-cards">
+
+        <!-- Summary Card -->
+        <div class="student-card gradient-green">
+            <h3>Summary</h3>
+            <p>Total Classes: <b>{{total}}</b></p>
+            <p>Present: <b>{{present}}</b></p>
+            <p>Absent: <b>{{absent}}</b></p>
+            <p>Attendance: <b>{{percent}}%</b></p>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="student-card gradient-blue">
+            <h3>Pie Chart</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="student-card gradient-purple">
+            <h3>Bar Chart</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+
+    </div>
+
+    <br>
+    <a href="/student" class="neon-btn">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+const present = {{present}};
+const absent = {{absent}};
+
+// PIE CHART
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+        labels: ['Present', 'Absent'],
+        datasets: [{
+            data: [present, absent],
+            backgroundColor: ['#00ffcc', '#ff4d4d']
+        }]
+    }
+});
+
+// BAR CHART
+new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Present', 'Absent'],
+        datasets: [{
+            label: 'Attendance',
+            data: [present, absent],
+            backgroundColor: ['#00c6ff', '#ff8008']
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

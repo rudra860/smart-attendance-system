@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Attendance Login</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+        <h1>📘 Smart Attendance</h1>
+        <p class="subtitle">Secure Login Portal</p>
+
+        <form method="post">
+
+            <!-- Username -->
+            <div class="input-box">
+                <i class="fa fa-id-card"></i>
+                <input type="text" name="username" placeholder="Registration No / Teacher ID" required>
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+                <i class="fa fa-lock"></i>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <i class="fa fa-eye toggle" onclick="togglePassword()"></i>
+            </div>
+
+            <!-- Role Hint -->
+            <div class="role-hint">
+                🎓 Student ➜ Reg No / 123<br>
+                👨‍🏫 Teacher ➜ teacher / 123
+            </div>
+
+            <!-- Remember -->
+            <div class="remember">
+                <input type="checkbox"> Remember Me
+            </div>
+
+            <!-- Button -->
+            <button class="login-btn">LOGIN</button>
+        </form>
+
+        <p class="footer-text">
+            Smart Attendance Management System
+        </p>
+    </div>
+
+</div>
+
+<script>
+function togglePassword(){
+    let p = document.getElementById("password");
+    p.type = (p.type === "password") ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

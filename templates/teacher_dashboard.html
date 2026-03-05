@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Dashboard</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="student-bg">
+
+<div class="student-container">
+
+    <!-- Header -->
+    <div class="student-header">
+        <h1>👨‍🏫 Teacher Dashboard</h1>
+        <p>Leave Approval & Attendance Control</p>
+    </div>
+
+    <!-- ================= SUMMARY ================= -->
+    <h3 class="section-title">📊 Leave Summary</h3>
+    <div class="student-cards">
+        <div class="student-card gradient-blue">
+            <h3>⏳ Pending</h3>
+            <h2>{{pending}}</h2>
+        </div>
+
+        <div class="student-card gradient-green">
+            <h3>✅ Approved</h3>
+            <h2>{{approved}}</h2>
+        </div>
+
+        <div class="student-card gradient-orange">
+            <h3>❌ Rejected</h3>
+            <h2>{{rejected}}</h2>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- ================= LEAVE REQUESTS ================= -->
+    <h3 class="section-title">📋 Leave Requests</h3>
+    <div class="student-card gradient-purple">
+
+        {% if leaves|length == 0 %}
+            <p style="text-align:center;opacity:0.7;">No leave requests found</p>
+        {% else %}
+        <table>
+            <tr>
+                <th>Roll No</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for l in leaves %}
+            <tr>
+                <td>{{l[1]}}</td>
+                <td>{{l[5]}}</td>
+                <td>
+                    <span class="badge {{l[6]|lower}}">{{l[6]}}</span>
+                </td>
+                <td>
+                    {% if l[6] == 'Pending' %}
+                        <a href="/approve/{{l[0]}}" class="btn approve">Approve</a>
+                        <a href="/reject/{{l[0]}}" class="btn reject">Reject</a>
+                    {% else %}
+                        <b>Processed</b>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <!-- ================= SUBJECT + DATE ================= -->
+    <h3 class="section-title">📅 Select Subject & Date</h3>
+    <div class="student-card gradient-green">
+
+    <form method="POST" style="text-align:center;">
+
+        <label><b>Select Date:</b></label>
+        <input type="date" name="date" value="{{selected_date}}" required>
+
+        <br><br>
+
+        <label><b>Select Subject:</b></label>
+        <select name="subject" required style="padding:8px;border-radius:8px;">
+
+            <option value="">-- Choose Subject --</option>
+
+            {% for sub in subjects %}
+                <option value="{{sub[0]}}"
+                {% if subject_code == sub[0] %}selected{% endif %}>
+                    {{sub[1]}} ({{sub[0]}})
+                </option>
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <button class="neon-btn">📋 Load Students</button>
+
+    </form>
+
+    </div>
+
+    <br>
+
+    <!-- ================= BULK ATTENDANCE ================= -->
+    <h3 class="section-title">📝 Mark Attendance</h3>
+    <div class="student-card gradient-blue">
+
+    <form method="POST" action="/save-subject-attendance">
+
+    <input type="hidden" name="date" value="{{selected_date}}">
+    <input type="hidden" name="subject" value="{{subject_code}}">
+
+    {% if students_today|length == 0 %}
+        <p style="text-align:center;opacity:0.7;">No students found</p>
+    {% else %}
+
+    <table>
+    <tr>
+        <th>
+            <input type="checkbox" id="selectAll">
+            Select All (Present)
+        </th>
+        <th>Reg No</th>
+        <th>Name</th>
+        <th>Status</th>
+    </tr>
+
+    {% for s in students_today %}
+    <tr>
+        <td>
+            <input type="checkbox"
+                   class="studentBox"
+                   name="{{s[0]}}"
+                   {% if s[2] == 'Present' %}checked{% endif %}>
+        </td>
+
+        <td>{{s[0]}}</td>
+        <td>{{s[1]}}</td>
+
+        <td>
+            {% if s[2] == 'Present' %}
+                ✅ Present
+            {% elif s[2] == 'Absent' %}
+                ❌ Absent
+            {% else %}
+                ⏳ Not Marked
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <br>
+
+    <div style="text-align:center;">
+        <button class="neon-btn" style="padding:12px 28px;font-size:16px;">
+            💾 Save Attendance
+        </button>
+    </div>
+
+    {% endif %}
+    </form>
+
+    </div>
+
+    <br>
+
+    <!-- ================= EXPORT ================= -->
+    <div style="text-align:center;">
+        <a href="/export-attendance" class="neon-btn">
+            📥 Download Attendance Report (CSV)
+        </a>
+    </div>
+
+    <br>
+
+    <!-- ================= LOGOUT ================= -->
+    <div style="text-align:center;">
+        <a href="/logout" class="neon-btn">🚪 Logout</a>
+    </div>
+
+    <footer style="text-align:center;opacity:0.6;margin-top:20px;">
+        © 2026 Smart Attendance Management System
+    </footer>
+
+</div>
+
+<!-- SELECT ALL SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const selectAll = document.getElementById("selectAll");
+    if(!selectAll) return;
+
+    selectAll.addEventListener("change", function () {
+        let checkboxes = document.querySelectorAll(".studentBox");
+        checkboxes.forEach(cb => cb.checked = this.checked);
+    });
+
+});
+</script>
+
+</body>
+</html>
